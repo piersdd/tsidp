@@ -32,7 +32,7 @@ import (
 	"tailscale.com/ipn/ipnstate"
 
 	"tailscale.com/tsnet"
-	"tailscale.com/version"
+	tsversion "tailscale.com/version"
 )
 
 // version is set at build time via -ldflags "-X main.version=..."
@@ -118,7 +118,7 @@ func main() {
 		// tailscaled needs to be setting an HTTP header for funneled requests
 		// that older versions don't provide.
 		// TODO(naman): is this the correct check?
-		if *flagFunnel && !version.AtLeast(st.Version, "1.71.0") {
+		if *flagFunnel && !tsversion.AtLeast(st.Version, "1.71.0") {
 			slog.Error("Local tailscaled not new enough to support -funnel. Update Tailscale or use tsnet mode.")
 			os.Exit(1)
 		}
